@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Map;
 import java.util.logging.*;
 
 
@@ -50,8 +51,9 @@ public class MainFilter implements Filter {
 		} else {
 			request = new FRequest(req);
 		}
-		if (req.getParameter("a") != null) {
-			logger.info("==== a is " + req.getParameter("a") + "====");
+		Map<String,String[]> map = req.getParameterMap();
+		for(String key:map.keySet()){
+			logger.info("=== Key: " + key + ", Value: " + map.get(key)[0] + " ===");
 		}
 		chain.doFilter(request, response);
 	}
